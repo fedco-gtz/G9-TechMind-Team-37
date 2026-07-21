@@ -142,6 +142,141 @@ Los casos críticos se reejecutan en cada sprint para asegurar que nuevas modifi
 ---
 ## 📋 Casos de Prueba Críticos
 
+| ID | Escenario | Resultado Esperado | Prioridad |
+|-----------|-----------|-----------|-----------|
+| CP-01 |	Contenido válido | HTTP 200 + JSON válido | Alta |
+| CP-02 |	Título vacío | HTTP 400 | |Alta |
+| CP-03 |	Texto vacío | HTTP 400 | Alta |
+| CP-04 |	JSON inválido | HTTP 400 | Media |
+| CP-05 |	Método GET sobre POST | HTTP 405 | Media | 
+| CP-06 |	Validación de estructura JSON | Campos obligatorios presentes | Alta |
+| CP-07 |	Persistencia en ATP | Registro almacenado correctamente | Alta |
+| CP-08 |	Tiempo de respuesta | < 2000 ms | Alta |
+
+---
+## ⚡ Automatización con Postman
+
+La colección de Postman implementa validaciones automáticas para:
+- Código HTTP esperado.
+- Presencia de `categoria`.
+- Presencia de `probabilidad`.
+- Rango válido de probabilidad.
+- Tiempo de respuesta.
+- Formato JSON.
+
+### Script de validación
+
+```
+pm.test("Status code is 200", function () { 
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response has categoria", function () { 
+    const jsonData = pm.response.json(); 
+    pm.expect(jsonData).to.have.property("categoria");
+});
+
+pm.test("Response has probabilidad", function () { 
+    const jsonData = pm.response.json(); 
+    pm.expect(jsonData).to.have.property("probabilidad");
+});
+
+pm.test("Probabilidad is between 0 and 1", function () {
+    const jsonData = pm.response.json();
+    pm.expect(jsonData.probabilidad).to.be.at.least(0);
+    pm.expect(jsonData.probabilidad).to.be.at.most(1);
+});
+
+pm.test("Response time is less than 2000ms", function () { 
+    pm.expect(pm.response.responseTime).to.be.below(2000);
+});
+```
+---
+## 📁 Estructura del Repositorio QA
+
+qa/
+├── casos-de-prueba/
+│   └── matriz-casos-prueba.xlsx
+├── evidencias/
+│   ├── capturas/
+│   └── respuestas-json/
+├── postman/
+│   ├── techmind_collection.json
+│   └── techmind_environment.json
+├── reportes/
+│   └── resultados-sprint-1.md
+├── QA_TESTING.md
+└── README.md
+
+---
+## 🚀 Cómo ejecutar las pruebas
+
+1. Importar la colección
+- Abrir Postman Web e importar:
+    **postman/techmind_collection.json**
+
+2. Importar el entorno
+- Importar:
+    **postman/techmind_environment.json**
+
+3. Configurar la URL
+- Variable requerida:
+    **base_url = http://localhost:8080**
+
+4. Ejecutar el endpoint
+**POST `{{base_url}}/contenido`**
+
+---
+## 📊 Criterios de Aceptación
+
+Un caso de prueba se considera APROBADO cuando:
+- El código HTTP coincide con el esperado.
+- La respuesta es un JSON válido.
+- Los campos obligatorios están presentes.
+- La probabilidad se encuentra en el rango permitido.
+- No se generan errores internos del servidor.
+- El tiempo de respuesta cumple el umbral definido.
+
+---
+## 📸 Evidencia de Ejecución
+
+Para cada ejecución se registra:
+- ID del caso de prueba.
+- Fecha y hora.
+- Request enviado.
+- Response recibido.
+- Estado (PASÓ / FALLÓ).
+- Captura de Postman.
+- Observaciones y defectos detectados.
+
+---
+## 📈 Estado del Sprint
+
+### Sprint 1 — QA Status
+| Actividad | Estado |
+|-----------|-----------|
+| Plan de Pruebas | ✅ Completado |
+| Matriz de Casos | ✅ Completado |
+| Configuración Postman | ✅ Completado |
+| Scripts Automáticos | ✅ Completado |
+| Ejecución sobre endpoint final | ⏳ Pendiente |
+| Evidencia de resultados | ⏳ Pendiente |
+
+---
+## 🔍 Checklist Pre-Demo
+
+- [x] Colección de Postman creada.
+- [x] Variables de entorno configuradas.
+- [x] Casos de prueba documentados.
+- [x] Scripts automáticos implementados.
+- [ ] Endpoint final disponible.
+- [ ] Ejecución completa de pruebas.
+- [ ] Evidencia consolidada para la demo.
+
+---
+## 🧾 Trazabilidad
+
+Todos los avances, bloqueos y resultados de QA se registran en el canal oficial de Discord del proyecto para mantener trazabilidad del sprint y soporte a la demostración final del hackathon.
 
 ---
 ## 👤 Responsable
