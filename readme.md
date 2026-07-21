@@ -194,6 +194,7 @@ pm.test("Response time is less than 2000ms", function () {
 ---
 ## 📁 Estructura del Repositorio QA
 
+```
 qa/
 ├── casos-de-prueba/
 │   └── matriz-casos-prueba.xlsx
@@ -207,6 +208,7 @@ qa/
 │   └── resultados-sprint-1.md
 ├── QA_TESTING.md
 └── README.md
+```
 
 ---
 ## 🚀 Cómo ejecutar las pruebas
