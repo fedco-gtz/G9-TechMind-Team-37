@@ -1,0 +1,87 @@
+{
+  "info": {
+    "_postman_id": "a8f342d1-9b12-4c6e-8d8a-techmindqa001",
+    "name": "TechMind - Suite QA API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST /predecir (Contenido Válido)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has categoria\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"categoria\");",
+              "});",
+              "",
+              "pm.test(\"Response has probabilidad\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"probabilidad\");",
+              "});",
+              "",
+              "pm.test(\"Probabilidad is between 0 and 1\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.probabilidad).to.be.at.least(0);",
+              "    pm.expect(jsonData.probabilidad).to.be.at.most(1);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 2000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"titulo\": \"Introducción a Spring Boot\",\n  \"texto\": \"En este contenido se presentan los conceptos básicos para la creación de APIs REST utilizando Java y Spring Boot.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/predecir",
+          "host": ["{{base_url}}"],
+          "path": ["predecir"]
+        }
+      }
+    },
+    {
+      "name": "GET /health",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Health status is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      }
+    }
+  ]
+}

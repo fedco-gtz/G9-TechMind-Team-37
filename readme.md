@@ -197,7 +197,7 @@ pm.test("Response time is less than 2000ms", function () {
 ```
 qa/
 ├── casos-de-prueba/
-│   └── matriz-casos-prueba.xlsx
+│   └── Matriz de Casos de Prueba – Sprint 1.xlsx
 ├── evidencias/
 │   ├── capturas/
 │   └── respuestas-json/
@@ -293,6 +293,6 @@ Todos los avances, bloqueos y resultados de QA se registran en el canal oficial 
 
 TechMind · Quality Assurance Repository · Hackathon G9 LATAM · Equipo 37
 
-*Actualización 21/07/2026*
+*Actualización 22/07/2026*
 
 </div>
