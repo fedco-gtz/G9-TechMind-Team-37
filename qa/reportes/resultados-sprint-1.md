@@ -22,15 +22,15 @@ Durante el Sprint 1 se ejecutó la suite completa de pruebas sobre los endpoints
 
 ## 🧪 Desglose por Tipo de Prueba
 
-| Categoría | Planificados | PASÓ | FALLÓ | % Éxito |
-|-----------|--------------|------|-------|---------|
-| **Funcionales (Flujo Feliz)** | 11 | 11 | 0 | 100% |
-| **Casos Borde / Encoding (UTF-8)** | 2 | 2 | 0 | 100% |
-| **Validación de Esquema / Tipos** | 1 | 1 | 0 | 100% |
-| **Seguridad (Inyección SQL / Content-Type)** | 2 | 2 | 0 | 100% |
-| **Endpoints Complementarios** | 2 | 2 | 0 | 100% |
-| **Resiliencia (Fallo PostgreSQL)** | 1 | 1 | 0 | 100% |
-| **Integridad de Datos** | 3 | 3 | 0 | 100% |
+| Categoria | Planificado | PASÓ | FALLÓ | % Éxito |
+|-----------|-----------|-----------|-----------|-----------|
+| Funcionales (Flujo Feliz) | 7 | 7 | 0 | 100 |
+| Casos Borde / Encoding (UTF-8) | 2 | 2 | 0 | 100 |
+| Validación de Esquema / Tipos | 1 | 1 | 0 |
+| Seguridad (Inyección SQL / Content-Type) | 2 | 2 | 0 | 100 |
+| Endpoints Complementarios | 2 | 2 | 0 | 100 |
+| Integridad de Datos |	6 | 6 | 0 | 100 |
+| **TOTAL** | **20** | **20** | **0** | **100** |
 
 ---
 

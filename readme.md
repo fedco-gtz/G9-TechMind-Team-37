@@ -3,14 +3,13 @@
 # 🧠 TechMind
 ### Organización Inteligente del Conocimiento Técnico
 
-[![QA](https://img.shields.io/badge/Quality_Assurance-QA-0A66C2?style=flat&logo=checkmarx&logoColor=white)](https://github.com/)
+[![QA](https://img.shields.io/badge/Quality_Assurance-QA_v1.0-0A66C2?style=flat&logo=checkmarx&logoColor=white)](https://github.com/)
 [![Postman](https://img.shields.io/badge/Postman-Web-FF6C37?style=flat&logo=postman&logoColor=white)](https://web.postman.co/)
 [![API Testing](https://img.shields.io/badge/API-Testing-00A8E8?style=flat&logo=fastapi&logoColor=white)](https://github.com/)
 [![Automation](https://img.shields.io/badge/Test-Automation-6DB33F?style=flat&logo=selenium&logoColor=white)](https://github.com/)
 [![JSON](https://img.shields.io/badge/JSON-Validation-000000?style=flat&logo=json&logoColor=white)](https://www.json.org/)
 [![OCI](https://img.shields.io/badge/Oracle-OCI-F80000?style=flat&logo=oracle&logoColor=white)](https://www.oracle.com/cloud/)
-[![GitHub](https://img.shields.io/badge/GitHub-QA_Repository-181717?style=flat&logo=github&logoColor=white)](https://github.com/)
-[![Sprint](https://img.shields.io/badge/Sprint-1-7C3AED?style=flat)](https://github.com/)
+[![Sprint](https://img.shields.io/badge/Sprint-1_Completado-7C3AED?style=flat)](https://github.com/)
 [![Hackathon](https://img.shields.io/badge/G9_LATAM-TechMind-blueviolet?style=flat)](https://github.com/ernes2111/G9-Tech-mind-Team-37)
 [![Repository](https://img.shields.io/badge/Repository-QA_Testing-2EA44F?style=flat&logo=github&logoColor=white)](https://github.com/ernes2111/G9-Tech-mind-Team-37)
 
@@ -19,20 +18,20 @@
 </div>
 
 ---
-##  📌 ¿Qué es este repositorio?
+## 📌 ¿Qué es este repositorio?
 
-Este repositorio centraliza toda la documentación, automatización y evidencia del área de Quality Assurance (QA) del proyecto TechMind – Organización Inteligente del Conocimiento Técnico.
+Este repositorio centraliza toda la documentación, automatización, evidencias y reportes del área de **Quality Assurance (QA)** del proyecto **TechMind – Organización Inteligente del Conocimiento Técnico**.
 
-El objetivo del área de QA es garantizar que el MVP cumpla los requisitos funcionales definidos por el equipo y que la API REST procese contenido técnico de forma correcta, consistente y trazable.
+El objetivo principal de QA es garantizar que el MVP cumpla los requisitos funcionales, asegure la resiliencia ante errores de entrada y valide que la API REST procese contenido técnico de forma correcta, consistente y trazable.
 
 ---
 ## 🎯 Objetivos de QA
-- Validar el funcionamiento de la API REST.
-- Verificar la estructura de las respuestas JSON.
-- Ejecutar pruebas funcionales, negativas y de integración.
+- Validar el funcionamiento integral de la API REST (`FastAPI`).
+- Verificar la estructura y los tipos de datos de las respuestas JSON.
+- Ejecutar pruebas funcionales, negativas, de borde y de seguridad (Inyección SQL).
 - Automatizar validaciones críticas en Postman.
-- Registrar evidencia de ejecución y defectos detectados.
-- Mantener trazabilidad de los resultados del sprint.
+- Registrar evidencia visual y técnica de ejecución de pruebas.
+- Mantener trazabilidad de los resultados del sprint mediante reportes ejecutivos.
 
 ---
 ## 🏗️ Arquitectura Bajo Prueba
@@ -59,20 +58,19 @@ Postman Web / Cliente
 ```
 ### Componentes Validados por QA
 
-| Componente | Validación | 
+| Componente | Validación QA | 
 |-----------|-----------|
-| **Spring Boot** | Endpoints REST | 
-| **FastAPI** | Respuesta del modelo | 
-| **PostgreSQL / OCI ATP** | Persistencia de resultados | 
-| **JSON** | Estructura y tipos de datos |
-| **OCI** | Disponibilidad e integración |
+| **Spring Boot** | Endpoints REST de cara al cliente | 
+| **FastAPI** | Respuesta del modelo ML y sanitización de entrada | 
+| **PostgreSQL / OCI ATP** | Persistencia correcta de resultados y esquema | 
+| **JSON** | Estructura, presencia de claves y tipos de datos (Pydantic) |
+| **OCI** | Disponibilidad e integración en la nube |
 
 ---
 ## 📬 Contrato de la API
 
-### Endpoint principal
-
-POST `/contenido`
+### Endpoint Principal
+`POST /predecir` (vía FastAPI) / `POST /contenido` (vía Spring Boot)
 
 ### Request esperado
 
@@ -107,51 +105,29 @@ POST `/contenido`
 | `informaciones_adicionales` | array | Mínimo 1 elemento |
 
 ---
-## 🧪 Estrategia de Pruebas
+## 🧪 Estrategia de Pruebas Ejecutadas
 
-### Pruebas Funcionales
-
-Se valida que el sistema:
-- Procese contenido técnico correctamente.
-- Devuelva una categoría temática.
-- Genere una probabilidad de clasificación.
-- Extraiga palabras clave relevantes.
-- Responda con JSON válido.
-
-### Pruebas Negativas
-
-Se verifica el comportamiento ante:
--   Título vacío.
-- Texto vacío.
-- JSON mal formado.
-- Método HTTP incorrecto.
-- Content-Type inválido.
-- Campos faltantes.
-
-### Pruebas de Integración
-
-Se comprueba la comunicación entre:
-- Spring Boot ↔ FastAPI.
-- FastAPI ↔ PostgreSQL.
-- API ↔ OCI.
-
-### Pruebas de Regresión
-
-Los casos críticos se reejecutan en cada sprint para asegurar que nuevas modificaciones no afecten funcionalidades previamente validadas.
+- Pruebas Funcionales (Flujo Feliz): Verificación de clasificación correcta, extracción de palabras clave, cálculo de probabilidad y normalización de textos (mayúsculas/tildes).
+- Casos Borde y Stress Leve: Evaluación ante payloads masivos (+500k caracteres) y resistencia a caracteres especiales/emojis (UTF-8).
+- Validación de Esquema y Tipos: Confirmación de rechazo inmediato (HTTP 422) ante datos con tipos incorrectos (números o booleanos).
+- Pruebas de Seguridad y Robustez: Inmunidad contra inyección SQL y rechazo de cabeceras no soportadas (XML).
+- Endpoints Complementarios: Diagnóstico del estado del servicio (GET /health) y consulta de catálogo (GET /categorias).
+- Integridad de Datos: Manejo de excepciones ante títulos vacíos, textos vacíos, JSONs mal formados o métodos HTTP no permitidos.
 
 ---
-## 📋 Casos de Prueba Críticos
+## 📊 Resumen de Resultados QA — Sprint 1 (v1.0)
 
-| ID | Escenario | Resultado Esperado | Prioridad |
+| Categoria | Planificado | Pasó | Falló |
 |-----------|-----------|-----------|-----------|
-| CP-01 |	Contenido válido | HTTP 200 + JSON válido | Alta |
-| CP-02 |	Título vacío | HTTP 400 | |Alta |
-| CP-03 |	Texto vacío | HTTP 400 | Alta |
-| CP-04 |	JSON inválido | HTTP 400 | Media |
-| CP-05 |	Método GET sobre POST | HTTP 405 | Media | 
-| CP-06 |	Validación de estructura JSON | Campos obligatorios presentes | Alta |
-| CP-07 |	Persistencia en ATP | Registro almacenado correctamente | Alta |
-| CP-08 |	Tiempo de respuesta | < 2000 ms | Alta |
+| Funcionales (Flujo Feliz) | 7 | 7 | 0 |
+| Casos Borde / Encoding (UTF-8) | 2 | 2 | 0 |
+| Validación de Esquema / Tipos | 1 | 1 | 0 |
+| Seguridad (Inyección SQL / Content-Type) | 2 | 2 | 0 |
+| Endpoints Complementarios | 2 | 2 | 0 | 
+| Integridad de Datos |	6 | 6 | 0 |
+| **TOTAL** | **20** | **20** | **0** |
+
+** 📄 El detalle de ejecución caso por caso y los gráficos de cobertura se encuentran en reportes/resultados-sprint-1.md.
 
 ---
 ## ⚡ Automatización con Postman
@@ -205,6 +181,7 @@ qa/
 │   ├── techmind_collection.json
 │   └── techmind_environment.json
 ├── reportes/
+│   ├── informes/
 │   └── resultados-sprint-1.md
 ├── QA_TESTING.md
 └── README.md
@@ -229,29 +206,6 @@ qa/
 **POST `{{base_url}}/contenido`**
 
 ---
-## 📊 Criterios de Aceptación
-
-Un caso de prueba se considera APROBADO cuando:
-- El código HTTP coincide con el esperado.
-- La respuesta es un JSON válido.
-- Los campos obligatorios están presentes.
-- La probabilidad se encuentra en el rango permitido.
-- No se generan errores internos del servidor.
-- El tiempo de respuesta cumple el umbral definido.
-
----
-## 📸 Evidencia de Ejecución
-
-Para cada ejecución se registra:
-- ID del caso de prueba.
-- Fecha y hora.
-- Request enviado.
-- Response recibido.
-- Estado (PASÓ / FALLÓ).
-- Captura de Postman.
-- Observaciones y defectos detectados.
-
----
 ## 📈 Estado del Sprint
 
 ### Sprint 1 — QA Status
@@ -261,8 +215,8 @@ Para cada ejecución se registra:
 | Matriz de Casos | ✅ Completado |
 | Configuración Postman | ✅ Completado |
 | Scripts Automáticos | ✅ Completado |
-| Ejecución sobre endpoint final | ⏳ Pendiente |
-| Evidencia de resultados | ⏳ Pendiente |
+| Ejecución sobre endpoint final | ✅ Completado |
+| Evidencia de resultados | ✅ Completado |
 
 ---
 ## 🔍 Checklist Pre-Demo
@@ -271,9 +225,9 @@ Para cada ejecución se registra:
 - [x] Variables de entorno configuradas.
 - [x] Casos de prueba documentados.
 - [x] Scripts automáticos implementados.
-- [ ] Endpoint final disponible.
-- [ ] Ejecución completa de pruebas.
-- [ ] Evidencia consolidada para la demo.
+- [x] Endpoint final disponible.
+- [x] Ejecución completa de pruebas.
+- [x] Evidencia consolidada para la demo.
 
 ---
 ## 🧾 Trazabilidad
@@ -293,6 +247,6 @@ Todos los avances, bloqueos y resultados de QA se registran en el canal oficial 
 
 TechMind · Quality Assurance Repository · Hackathon G9 LATAM · Equipo 37
 
-*Actualización 22/07/2026*
+*Actualización 23/07/2026*
 
 </div>
